@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,8 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #121212;
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
       color: #fff;
       display: flex;
       justify-content: center;
@@ -19,8 +20,7 @@
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
+      font-size: 2.5rem;
     }
 
     .container {
@@ -59,45 +59,53 @@
       margin: 20px 0;
     }
 
-    .congrats {
-      font-size: 2rem;
-      color: #00ff00;
+    .result {
+      text-align: left;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Квест Информатика</h1>
-    <p id="intro">Добро пожаловать в игру! Реши все задачи, чтобы пройти квест.</p>
-    <button id="startButton">Начать игру</button>
+    <p id="intro">Ойынға қош келдіңіз! Барлық сұрақтарға жауап беріп, жеңімпаз болыңыз!</p>
+    <button id="startButton">Бастау</button>
 
     <div id="level1" class="hidden level">
-      <h2>Уровень 1: Код</h2>
-      <p>Введите результат вычисления: <strong>5 + 3 * 2</strong></p>
-      <input type="text" id="answer1" placeholder="Ваш ответ">
-      <button onclick="checkAnswer1()">Отправить</button>
+      <h2>1-деңгей: Математика</h2>
+      <p>8 + 4 - 2 = ?</p>
+      <input type="text" id="answer1" placeholder="Жауабыңыз">
+      <button onclick="checkAnswer1()">Жіберу</button>
       <p id="feedback1"></p>
     </div>
 
     <div id="level2" class="hidden level">
-      <h2>Уровень 2: Логика</h2>
-      <p>Какая строка завершает этот код на Python: <code>if x > 5:</code></p>
-      <input type="text" id="answer2" placeholder="Ваш ответ">
-      <button onclick="checkAnswer2()">Отправить</button>
+      <h2>2-деңгей: Кодтау</h2>
+      <p>Python тілінде "Сәлем" шығару коды қандай?</p>
+      <input type="text" id="answer2" placeholder="Жауабыңыз">
+      <button onclick="checkAnswer2()">Жіберу</button>
       <p id="feedback2"></p>
     </div>
 
     <div id="level3" class="hidden level">
-      <h2>Уровень 3: Алгоритм</h2>
-      <p>Какой следующий элемент последовательности: <strong>1, 1, 2, 3, 5, ?</strong></p>
-      <input type="text" id="answer3" placeholder="Ваш ответ">
-      <button onclick="checkAnswer3()">Отправить</button>
+      <h2>3-деңгей: Логика</h2>
+      <p>Келесі қатарды аяқтаңыз: 2, 4, 6, 8, ?</p>
+      <input type="text" id="answer3" placeholder="Жауабыңыз">
+      <button onclick="checkAnswer3()">Жіберу</button>
       <p id="feedback3"></p>
     </div>
 
-    <div id="congrats" class="hidden">
-      <h2 class="congrats">Поздравляем!</h2>
-      <p>Вы прошли квест "Информатика"! Отличная работа!</p>
+    <div id="level4" class="hidden level">
+      <h2>4-деңгей: Алгоритм</h2>
+      <p>Фибоначчи қатарында 1, 1, 2, 3, 5, келесі сан қандай?</p>
+      <input type="text" id="answer4" placeholder="Жауабыңыз">
+      <button onclick="checkAnswer4()">Жіберу</button>
+      <p id="feedback4"></p>
+    </div>
+
+    <div id="results" class="hidden">
+      <h2>Қорытынды:</h2>
+      <div id="summary"></div>
     </div>
   </div>
 
@@ -106,7 +114,11 @@
     const level1 = document.getElementById("level1");
     const level2 = document.getElementById("level2");
     const level3 = document.getElementById("level3");
-    const congrats = document.getElementById("congrats");
+    const level4 = document.getElementById("level4");
+    const results = document.getElementById("results");
+    const summary = document.getElementById("summary");
+
+    const answers = [];
 
     startButton.addEventListener("click", () => {
       startButton.classList.add("hidden");
@@ -116,32 +128,56 @@
 
     function checkAnswer1() {
       const answer = document.getElementById("answer1").value;
-      if (answer === "11") {
+      answers.push({ level: 1, question: "8 + 4 - 2", correct: "10", userAnswer: answer });
+      if (answer === "10") {
         level1.classList.add("hidden");
         level2.classList.remove("hidden");
       } else {
-        document.getElementById("feedback1").textContent = "Неправильно. Попробуйте снова!";
+        document.getElementById("feedback1").textContent = "Қате. Дұрыс жауап: 10.";
       }
     }
 
     function checkAnswer2() {
       const answer = document.getElementById("answer2").value.toLowerCase();
-      if (answer === "print('hello')" || answer === "print(\"hello\")") {
+      answers.push({
+        level: 2,
+        question: 'Python тілінде "Сәлем" шығару',
+        correct: "print('сәлем')",
+        userAnswer: answer,
+      });
+      if (answer === "print('сәлем')" || answer === 'print("сәлем")') {
         level2.classList.add("hidden");
         level3.classList.remove("hidden");
       } else {
-        document.getElementById("feedback2").textContent = "Неправильно. Подумайте ещё!";
+        document.getElementById("feedback2").textContent = "Қате. Дұрыс жауап: print('сәлем').";
       }
     }
 
     function checkAnswer3() {
       const answer = document.getElementById("answer3").value;
-      if (answer === "8") {
+      answers.push({ level: 3, question: "2, 4, 6, 8, ?", correct: "10", userAnswer: answer });
+      if (answer === "10") {
         level3.classList.add("hidden");
-        congrats.classList.remove("hidden");
+        level4.classList.remove("hidden");
       } else {
-        document.getElementById("feedback3").textContent = "Не совсем. Попробуйте ещё!";
+        document.getElementById("feedback3").textContent = "Қате. Дұрыс жауап: 10.";
       }
+    }
+
+    function checkAnswer4() {
+      const answer = document.getElementById("answer4").value;
+      answers.push({ level: 4, question: "1, 1, 2, 3, 5, ?", correct: "8", userAnswer: answer });
+      level4.classList.add("hidden");
+      results.classList.remove("hidden");
+
+      // Қорытынды шығару
+      answers.forEach((item) => {
+        const result = document.createElement("p");
+        result.innerHTML = `<strong>${item.level}-деңгей:</strong> ${item.question} <br> 
+        Сіздің жауабыңыз: ${item.userAnswer} | Дұрыс жауап: ${item.correct} 
+        ${item.userAnswer === item.correct ? "✅" : "❌"}`;
+        summary.appendChild(result);
+      });
     }
   </script>
 </body>
