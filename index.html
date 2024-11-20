@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Квест Информатика</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      margin: 10px 0;
+      width: 80%;
+    }
+
+    .level {
+      margin: 20px 0;
+    }
+
+    .congrats {
+      font-size: 2rem;
+      color: #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Квест Информатика</h1>
+    <p id="intro">Добро пожаловать в игру! Реши все задачи, чтобы пройти квест.</p>
+    <button id="startButton">Начать игру</button>
+
+    <div id="level1" class="hidden level">
+      <h2>Уровень 1: Код</h2>
+      <p>Введите результат вычисления: <strong>5 + 3 * 2</strong></p>
+      <input type="text" id="answer1" placeholder="Ваш ответ">
+      <button onclick="checkAnswer1()">Отправить</button>
+      <p id="feedback1"></p>
+    </div>
+
+    <div id="level2" class="hidden level">
+      <h2>Уровень 2: Логика</h2>
+      <p>Какая строка завершает этот код на Python: <code>if x > 5:</code></p>
+      <input type="text" id="answer2" placeholder="Ваш ответ">
+      <button onclick="checkAnswer2()">Отправить</button>
+      <p id="feedback2"></p>
+    </div>
+
+    <div id="level3" class="hidden level">
+      <h2>Уровень 3: Алгоритм</h2>
+      <p>Какой следующий элемент последовательности: <strong>1, 1, 2, 3, 5, ?</strong></p>
+      <input type="text" id="answer3" placeholder="Ваш ответ">
+      <button onclick="checkAnswer3()">Отправить</button>
+      <p id="feedback3"></p>
+    </div>
+
+    <div id="congrats" class="hidden">
+      <h2 class="congrats">Поздравляем!</h2>
+      <p>Вы прошли квест "Информатика"! Отличная работа!</p>
+    </div>
+  </div>
+
+  <script>
+    const startButton = document.getElementById("startButton");
+    const level1 = document.getElementById("level1");
+    const level2 = document.getElementById("level2");
+    const level3 = document.getElementById("level3");
+    const congrats = document.getElementById("congrats");
+
+    startButton.addEventListener("click", () => {
+      startButton.classList.add("hidden");
+      document.getElementById("intro").classList.add("hidden");
+      level1.classList.remove("hidden");
+    });
+
+    function checkAnswer1() {
+      const answer = document.getElementById("answer1").value;
+      if (answer === "11") {
+        level1.classList.add("hidden");
+        level2.classList.remove("hidden");
+      } else {
+        document.getElementById("feedback1").textContent = "Неправильно. Попробуйте снова!";
+      }
+    }
+
+    function checkAnswer2() {
+      const answer = document.getElementById("answer2").value.toLowerCase();
+      if (answer === "print('hello')" || answer === "print(\"hello\")") {
+        level2.classList.add("hidden");
+        level3.classList.remove("hidden");
+      } else {
+        document.getElementById("feedback2").textContent = "Неправильно. Подумайте ещё!";
+      }
+    }
+
+    function checkAnswer3() {
+      const answer = document.getElementById("answer3").value;
+      if (answer === "8") {
+        level3.classList.add("hidden");
+        congrats.classList.remove("hidden");
+      } else {
+        document.getElementById("feedback3").textContent = "Не совсем. Попробуйте ещё!";
+      }
+    }
+  </script>
+</body>
+</html>
